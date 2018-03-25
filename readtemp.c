@@ -10,25 +10,25 @@ int main(void)
 	ADCSRA = 0x8f;
 	ADMUX = 0X40;
 
-
 	sei();
 
-	ADCSRA|=(1 << ADSC);
+	ADCSRA |= (1 << ADSC);
 
-	while(1)
+	while (1)
 	{
 		//_delay_ms(1000);
 		//PORTB^=(1<<PINB0);
 	}
 
 	return 0;
-
-
-
 }
 
 ISR(ADC_vect)
 {
-	PORTD=ADCL;
-	ADCSRA|=(1<<ADSC);
+	while ()
+	{
+
+		PORTD = ADCL;
+		ADCSRA |= (1 << ADSC);
+	}
 }
