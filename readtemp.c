@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-int tempC;
+int temp;
 int readADC(char channel)
 {
 	ADMUX = (3 << REFS0) | (1 << ADLAR) | (channel << MUX0); // VREF=2.56V, 8-bit, channel #0 is on PA0
@@ -24,7 +24,7 @@ int main(void)
 
 	while (1)
 	{
-		temp = readADC(0)
+		temp = readADC(0);
 	}
 
 	return 0;
