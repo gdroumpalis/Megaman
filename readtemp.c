@@ -5,7 +5,7 @@
 int main(void)
 {
 
-	//DDRB |= (1<<PINB0);
+	DDRB &= ~(1<<PINA0);
 	DDRD = 0xff;
 	ADCSRA = 0x8f;
 	ADMUX = 0X40;
