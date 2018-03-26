@@ -18,6 +18,7 @@ int main(void)
 	{
 		PORTD = ADCL;
 		ADCSRA |= (1 << ADSC);
+		_delay_ms(100);
 	}
 
 	return 0;
