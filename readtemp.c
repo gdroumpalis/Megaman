@@ -5,7 +5,7 @@
 int main(void)
 {
 
-	DDRB &= ~(1 << PINA0);
+	DDRA &= ~(1 << PINA0);
 	DDRD = 0xff;
 	ADCSRA = 0x8f;
 	ADMUX = 0X40;
@@ -16,17 +16,17 @@ int main(void)
 
 	while (1)
 	{
-		PORTD = ADCL;
-		ADCSRA |= (1 << ADSC);
-		_delay_ms(100);
+		// PORTD = ADCL;
+		// ADCSRA |= (1 << ADSC);
+		// _delay_ms(100);
 	}
 
 	return 0;
 }
 
-// ISR(ADC_vect)
-// {
+ISR(ADC_vect)
+{
 
-// 	PORTD = ADCL;
-// 	ADCSRA |= (1 << ADSC);
-// }
+	PORTD = ADCL;
+	ADCSRA |= (1 << ADSC);
+}
