@@ -19,6 +19,7 @@ void usart_data_transmit(unsigned int data )
 unsigned int i = 0;
 int main(void)
 {
+    DDRB = 0XFF;
 	/* Replace with your application code */
 	usart_init();
 	//sei();
