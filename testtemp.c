@@ -4,11 +4,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libfiles/uart.h>
+// #include <libfiles/uart.h>
 
 #define degree_sysmbol 0xdf
 
-void ADC_Init(){										
+void ADC_Init(){
 	DDRA = 0x00;	        /* Make ADC port as input */
 	ADCSRA = 0x87;          /* Enable ADC, with freq/128  */
 	ADMUX = 0x40;           /* Vref: Avcc, ADC channel: 0 */
@@ -20,7 +20,7 @@ void usart_init()
 	UCSRB|= (1<<RXEN)|(1<<TXEN);
 	UCSRC |= (1 << URSEL)|(3<<UCSZ0);
 }
-int ADC_Read(char channel)							
+int ADC_Read(char channel)
 {
 	ADMUX = 0x40 | (channel & 0x07);   /* set input channel to read */
 	ADCSRA |= (1<<ADSC);               /* Start ADC conversion */
@@ -54,7 +54,7 @@ int main()
 	usart_init();
 	while(1)
 	{
-	   
+
 	   celsius = (ADC_Read(0)*4.88);
 	   celsius = (celsius/10.00);
 
@@ -64,7 +64,7 @@ int main()
 		/*Transmits string to PC*/
 
 		usart_data_transmit(0x0d);
-	   _delay_ms(80);
+	   _delay_ms(15);
 	   memset(Temperature,0,10);
 	}
 }
