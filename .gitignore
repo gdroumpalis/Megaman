@@ -1,3 +1,8 @@
+#Help files
+log.txt
+.idea
+libfiles/
+
 # Prerequisites
 *.d
 
