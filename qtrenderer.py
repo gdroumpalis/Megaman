@@ -18,16 +18,18 @@ currenttemp = p.plot()                        # create an empty "plot" (a curve 
 averagetemp = p.plot()
 
 windowWidth = 500                       # width of the window displaying the curve
-Xm = linspace(0,0,windowWidth)          # create array that will contain the relevant time series  
-Avm = linspace(0,0,windowWidth)   
+#Xm = linspace(0,0,windowWidth)          # create array that will contain the relevant time series  
+Xm = []
+#Avm = linspace(0,0,windowWidth)   
+Avm = []
 ptr = -windowWidth                      # set first x position
 
 # Realtime data plot. Each time this function is called, the data display is updated
 def update():
     global currenttemp, ptr, Xm    
     #Xm[:-1] = Xm[1:]                      # shift data in the temporal mean 1 sample left
-    if len(Xm) > 40:
-        del Xm[0]
+    if len(Xm) > 50:
+        Xm.pop(0)
     value = ser.readline().decode('utf-8')                # read line (single value) from the serial port
     Xm[-1] = float(value)                 # vector containing the instantaneous values      
     Avm = (sum(Xm)/len(Xm))
