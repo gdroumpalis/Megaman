@@ -4,40 +4,31 @@ import pyqtgraph as pg
 import serial
 
 # Create object serial port
-portName = "/dev/ttyUSB0"                     
+portName = "/dev/ttyUSB0"                      # replace this port name by yours!
 baudrate = 1200
 ser = serial.Serial(portName,baudrate)
 
 ### START QtApp #####
-app = QtGui.QApplication([])
-
+app = QtGui.QApplication([])            # you MUST do this once (initialize things)
+####################
 
 win = pg.GraphicsWindow(title="Signal from serial port") # creates a window
-p = win.addPlot(title="Realtime Temperature plot")  # creates empty space for the plot in the window
-currenttemp = p.plot()                        # create an empty "plot" (a curve to plot)
-averagetemp = p.plot()
+p = win.addPlot(title="Realtime plot")  # creates empty space for the plot in the window
+curve = p.plot()                        # create an empty "plot" (a curve to plot)
 
 windowWidth = 500                       # width of the window displaying the curve
-#Xm = linspace(0,0,windowWidth)          # create array that will contain the relevant time series  
-Xm = []
-#Avm = linspace(0,0,windowWidth)   
-Avm = []
+Xm = linspace(0,0,windowWidth)          # create array that will contain the relevant time series     
 ptr = -windowWidth                      # set first x position
 
 # Realtime data plot. Each time this function is called, the data display is updated
 def update():
-    global currenttemp, ptr, Xm    
-    #Xm[:-1] = Xm[1:]                      # shift data in the temporal mean 1 sample left
-    if len(Xm) > 50:
-        Xm.pop(0)
-    value = ser.readline().decode('utf-8')                # read line (single value) from the serial port
-    Xm.append(float(value))                 # vector containing the instantaneous values      )
-    Avm = (sum(Xm)/len(Xm))
+    global curve, ptr, Xm    
+    Xm[:-1] = Xm[1:]                      # shift data in the temporal mean 1 sample left
+    value = ser.readline()                # read line (single value) from the serial port
+    Xm[-1] = float(value)                 # vector containing the instantaneous values      
     ptr += 1                              # update x position for displaying the curve
-    currenttemp.setData(Xm)                     # set the curve with this data
-    currenttemp.setPos(ptr,0)                   # set x position in the graph to 0
-    averagetemp.setData(Avm)
-    averagetemp.setPos(currenttemp.getPos())
+    curve.setData(Xm)                     # set the curve with this data
+    curve.setPos(ptr,0)                   # set x position in the graph to 0
     QtGui.QApplication.processEvents()    # you MUST process the plot now
 
 ### MAIN PROGRAM #####    
