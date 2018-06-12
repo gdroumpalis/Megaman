@@ -31,7 +31,7 @@ def update():
     if len(Xm) > 50:
         Xm.pop(0)
     value = ser.readline().decode('utf-8')                # read line (single value) from the serial port
-    Xm[-1] = float(value)                 # vector containing the instantaneous values      
+    Xm.append(float(value))                 # vector containing the instantaneous values      )
     Avm = (sum(Xm)/len(Xm))
     ptr += 1                              # update x position for displaying the curve
     currenttemp.setData(Xm)                     # set the curve with this data
