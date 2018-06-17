@@ -15,7 +15,7 @@ avgtemp = win.addPlot(title="Avg Temperature")
 # create an empty "plot" (a curve to plot)
 tempcurve = temp.plot()
 avgtempcurve = avgtemp.plot()
-windowWidth = 500                       # width of the window displaying the curve
+windowWidth = 100                       # width of the window displaying the curve
 # create array that will contain the relevant time series
 Xm = linspace(0, 0, windowWidth)
 #Am = linspace(0,0,windowWidth)
@@ -29,9 +29,7 @@ def update():
     global tempcurve, avgtempcurve, ptr, Xm, Am
 
     Am = numpy.append(Am, random.randint(1, 120))
-
-    if len(Am) > 500:
-       Am[:-1] = Am[1:] 
+    Am[:-1] = Am[1:] 
 
     ptr += 1                              # update x position for displaying the curve
     tempcurve.setData(Am)                     # set the curve with this data
