@@ -1,0 +1,5 @@
+sudo avrdude -p atmega16 -c usbasp -U flash:w:readtemp.hex:i -F -P usb
+
+avr-gcc -Wall -g -Os -mmcu=atmega16 -o readtemp.bin readtemp.c
+
+avr-objcopy -j .text -j .data -O ihex readtemp.bin readtemp.hex
